@@ -1,0 +1,11 @@
+# Inject a named prompt snippet into clipboard or stdout
+pp() {
+  local snippet="$HOME/.prompts/$1.md"
+  if [[ -f "$snippet" ]]; then
+    cat "$snippet" | pbcopy  # or xclip on Linux
+    echo "Copied: $1"
+  else
+    echo "Not found: $snippet"
+    ls ~/.prompts/
+  fi
+}

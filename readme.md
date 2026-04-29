@@ -1,4 +1,4 @@
-# 🍭 Configs
+# 🍭 dotfiles and config
 
 ## Shell
 
