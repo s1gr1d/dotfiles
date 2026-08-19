@@ -8,29 +8,25 @@ here; each tool gets a symlink into the path it expects.
   symlink, so it's written once.
 - **`skills/`** — auto-loaded structured task instructions (Agent Skills
   open-standard `SKILL.md` format). An agent reads each skill's frontmatter
-  `description` and loads it when the task matches. One skill = one task.
+  `description` and loads it when the task matches. One skill = one task. Holds
+  both hand-written skills and vendored ones (see Vendored skills below).
 - **`prompts/`** — paste-on-demand snippets, invoked via the `pp` shell
   function, e.g. `pp personal/coding-style`. The `personal/` namespace is
   load-bearing for `pp` — keep it.
 
-## Wiring it up
+## Vendored skills
 
-The repo-root `install.sh` symlinks everything (shell config + this agents
-area) into place. Run it once per machine — it derives its own path, backs up
-anything already at a target, and is safe to re-run:
+### pstack
 
-```sh
-../install.sh
-```
+Source: https://github.com/cursor/plugins/tree/main/pstack/skills
 
-Agent links it creates (see `install.sh` for the shell links too):
+- [principle-fix-root-causes](skills/principle-fix-root-causes)
+- [principle-foundational-thinking](skills/principle-foundational-thinking)
+- [principle-guard-the-context-window](skills/principle-guard-the-context-window)
+- [principle-laziness-protocol](skills/principle-laziness-protocol)
+- [technical-writing](skills/technical-writing)
+- [unslop](skills/unslop)
 
-| Target | Source |
-|---|---|
-| `~/.prompts` | `agents/prompts` |
-| `~/.claude/skills` | `agents/skills` |
-| `~/.claude/CLAUDE.md` | `agents/AGENTS.md` |
-| `~/.codex/AGENTS.md` | `agents/AGENTS.md` |
 
 ## Notes
 
