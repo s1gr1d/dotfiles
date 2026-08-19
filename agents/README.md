@@ -1,18 +1,18 @@
 # agents/
 
-Personal, cross-agent config kept under version control. One source of truth
-here; each tool gets a symlink into the path it expects.
+Personal, cross-agent config kept in version control. This folder is the source
+of truth, and each tool gets a symlink into the path it expects.
 
-- **`AGENTS.md`** — global instructions (style, conventions, habits) that apply
-  everywhere. Consumed by Codex natively and by Claude Code via a `CLAUDE.md`
-  symlink, so it's written once.
-- **`skills/`** — auto-loaded structured task instructions (Agent Skills
-  open-standard `SKILL.md` format). An agent reads each skill's frontmatter
-  `description` and loads it when the task matches. One skill = one task. Holds
-  both hand-written skills and vendored ones (see Vendored skills below).
-- **`prompts/`** — paste-on-demand snippets, invoked via the `pp` shell
-  function, e.g. `pp personal/coding-style`. The `personal/` namespace is
-  load-bearing for `pp` — keep it.
+- `AGENTS.md` holds global instructions (style, conventions, habits) for every
+  project. Codex reads it directly. Claude Code reads it through a `CLAUDE.md`
+  symlink, so you write it once.
+- `skills/` holds structured task instructions in the open `SKILL.md` format. An
+  agent reads each skill's `description` and loads the skill when the task
+  matches. Keep one skill to one task. This folder mixes skills I wrote and
+  skills I vendored (listed below).
+- `prompts/` holds snippets you paste on demand with the `pp` shell function,
+  for example `pp personal/coding-style`. The `pp` function depends on the
+  `personal/` namespace, so keep it.
 
 ## Vendored skills
 
@@ -27,16 +27,14 @@ Source: https://github.com/cursor/plugins/tree/main/pstack/skills
 - [technical-writing](skills/technical-writing)
 - [unslop](skills/unslop)
 
-
 ## Notes
 
-- **Formats are stable, locations drift.** `SKILL.md` and `AGENTS.md` as file
-  formats are broadly adopted, but the exact directory each tool scans changes
-  between releases. If a link stops being picked up, check that tool's current
-  docs and adjust `install.sh`.
-- Claude Code's native global instruction file is `CLAUDE.md`, not `AGENTS.md`,
-  which is why the installer points `CLAUDE.md` at `AGENTS.md` — one file, both
-  agents.
-- Keep `AGENTS.md` short and specific. It loads every turn, so verbosity costs
-  context. Put repo-specific facts (build/test commands) in each project's own
-  `AGENTS.md`, not here.
+- Formats are stable, but locations drift. The `SKILL.md` and `AGENTS.md`
+  formats are widely adopted, yet the directory each tool scans changes between
+  releases. If a link stops working, check the tool's current docs and adjust
+  `install.sh`.
+- Claude Code reads `CLAUDE.md`, not `AGENTS.md`. That is why the installer
+  points `CLAUDE.md` at `AGENTS.md`, so both agents share one file.
+- Keep `AGENTS.md` short and specific. It loads on every turn, so length costs
+  context. Put repo-specific facts like build and test commands in each
+  project's own `AGENTS.md`, not here.

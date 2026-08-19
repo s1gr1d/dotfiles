@@ -1,9 +1,9 @@
 # 🍭 dotfiles and config
 
-My personal dotfiles: shell config and a vendor-neutral setup for AI coding
-agents (Claude Code, Codex, …). The repo is the single source of truth —
-everything else is a symlink pointing back here, so editing a file in this repo
-updates it everywhere at once.
+My dotfiles: shell config plus a vendor-neutral setup for AI coding agents like
+Claude Code and Codex. This repo is the source of truth. Everything else is a
+symlink pointing back here, so editing a file in the repo updates it everywhere
+at once.
 
 ## Preferences
 
@@ -19,41 +19,41 @@ updates it everywhere at once.
 dotfiles/
 ├── install.sh              # symlinks everything into place (idempotent)
 ├── shell/
-│   ├── zshrc               # thin: Oh My Zsh setup + sources the modules below
+│   ├── zshrc               # thin entry point; sources the modules below
 │   └── zsh/                # split so each concern is small and greppable
 │       ├── exports.zsh     # environment variables
-│       ├── tools.zsh       # PATH entries, tool hooks (Volta, bun, direnv, …)
+│       ├── tools.zsh       # PATH entries and tool hooks (Volta, bun, direnv)
 │       ├── aliases.zsh     # shell aliases
-│       └── functions.zsh   # shell functions (pp, prs-to-review, …)
-└── agents/                 # cross-agent config — see agents/README.md
-    ├── AGENTS.md           # global instructions, shared by Claude Code + Codex
+│       └── functions.zsh   # shell functions like pp and prs-to-review
+└── agents/                 # cross-agent config; see agents/README.md
+    ├── AGENTS.md           # global instructions, shared by Claude Code and Codex
     ├── prompts/            # paste-on-demand snippets, invoked via the `pp` function
     └── skills/             # auto-loaded task instructions (SKILL.md folders)
 ```
 
 ## Setup on a new machine
 
-1. **Clone the repo** anywhere — the paths are not hard-coded, `install.sh`
-   figures out where it lives:
+1. Clone the repo anywhere. The paths are not hard-coded, so `install.sh` finds
+   where it lives:
 
    ```sh
    git clone <this-repo> ~/dotfiles && cd ~/dotfiles
    ```
 
-2. **Preview what will change** (nothing is written yet):
+2. Preview the changes. Nothing is written yet:
 
    ```sh
    ./install.sh --dry-run
    ```
 
-3. **Create the symlinks:**
+3. Create the symlinks:
 
    ```sh
    ./install.sh
    ```
 
    It backs up anything already at a target to `<file>.bak` before linking, and
-   is safe to re-run. Links it creates:
+   you can re-run it safely. It creates these links:
 
    | Symlink | Points at | Used by |
    |---|---|---|
@@ -63,42 +63,44 @@ dotfiles/
    | `~/.claude/CLAUDE.md` | `agents/AGENTS.md` | Claude Code |
    | `~/.codex/AGENTS.md` | `agents/AGENTS.md` | Codex |
 
-4. **Reload the shell:** open a new terminal (or `source ~/.zshrc`).
+4. Reload the shell. Open a new terminal, or run `source ~/.zshrc`.
 
-5. **Install the rest by hand** (not managed here, see notes below):
-   - Oh My Zsh + the zsh plugins listed in `shell/zshrc`
-   - Any Claude Code plugin marketplaces you use (e.g. `sentry-skills`)
+5. Install the rest by hand. This repo does not manage:
+   - Oh My Zsh and the zsh plugins listed in `shell/zshrc`
+   - Any Claude Code plugin marketplaces you use, such as `sentry-skills`
 
-## How it works & why
+## How it works and why
 
-- **One source of truth, many symlinks.** Each tool reads config from a fixed
-  location (`~/.zshrc`, `~/.claude/skills`, …). Instead of copying files there,
-  we symlink those locations back to this repo. Edit once, and every tool sees
-  the change — no sync step. This is the standard dotfiles pattern.
+One source of truth, many symlinks. Each tool reads its config from a fixed
+location like `~/.zshrc` or `~/.claude/skills`. Instead of copying files there,
+the installer symlinks those locations back to this repo. You edit once and
+every tool sees the change, with no sync step. This is the standard dotfiles
+pattern.
 
-- **`AGENTS.md`, written once.** `AGENTS.md` is an open, cross-agent standard for
-  project/global instructions, read natively by Codex and many others
-  ([agents.md](https://agents.md/)). Claude Code's own file is `CLAUDE.md`, so we
-  point `~/.claude/CLAUDE.md` at the same `AGENTS.md` — one file feeds both.
+`AGENTS.md`, written once. It is an open cross-agent standard for global and
+project instructions that Codex and many other tools read directly
+([agents.md](https://agents.md/)). Claude Code uses `CLAUDE.md` instead, so the
+installer points `~/.claude/CLAUDE.md` at the same `AGENTS.md`. One file feeds
+both.
 
-- **`skills/` vs `prompts/`.** Skills are structured `SKILL.md` folders an agent
-  *auto-loads* when a task matches their `description`; prompts are snippets *you*
-  paste on demand via `pp` (e.g. `pp personal/coding-style`). See
-  [`agents/README.md`](agents/README.md) for the details.
+`skills/` vs `prompts/`. Skills are `SKILL.md` folders an agent loads on its own
+when a task matches the `description`. Prompts are snippets you paste yourself
+with `pp`, for example `pp personal/coding-style`. See
+[`agents/README.md`](agents/README.md) for more.
 
-- **Shell config is split by concern.** The 300-line `.zshrc` became a thin
-  entry point that sources `shell/zsh/*.zsh` in order (exports → tools → aliases
-  → functions). Interdependent lines (e.g. a tool's env var and its `PATH`
-  entry) stay together in the same file.
+Shell config split by concern. The old 300-line `.zshrc` is now a thin entry
+point that sources `shell/zsh/*.zsh` in this order: exports, tools, aliases,
+functions. Lines that depend on each other, like a tool's env var and its `PATH`
+entry, stay in the same file.
 
-- **What this repo does *not* manage:** Claude Code plugin/marketplace skills
-  live under `~/.claude/plugins/` and are managed by Claude Code itself — don't
-  symlink those. This repo only owns skills you author in `agents/skills/`.
+What this repo does not manage. Claude Code marketplace skills live under
+`~/.claude/plugins/`, and Claude Code manages them itself, so don't symlink
+those. This repo owns only the skills you write in `agents/skills/`.
 
 ### Reference docs
 
-- AGENTS.md standard — <https://agents.md/>
-- Claude Code docs — <https://code.claude.com/docs>
-  - Skills — <https://code.claude.com/docs/en/skills>
-  - Memory / CLAUDE.md — <https://code.claude.com/docs/en/memory>
-- OpenAI Codex CLI — <https://learn.chatgpt.com/docs/codex/cli>
+- AGENTS.md standard: <https://agents.md/>
+- Claude Code docs: <https://code.claude.com/docs>
+  - Skills: <https://code.claude.com/docs/en/skills>
+  - Memory and CLAUDE.md: <https://code.claude.com/docs/en/memory>
+- OpenAI Codex CLI: <https://learn.chatgpt.com/docs/codex/cli>
