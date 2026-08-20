@@ -21,6 +21,7 @@ of truth, and each tool gets a symlink into the path it expects.
 Source: https://github.com/cursor/plugins/tree/main/pstack/skills
 
 - [principle-encode-lessons-in-structure](skills/principle-encode-lessons-in-structure)
+- [principle-experience-first](skills/principle-experience-first)
 - [principle-fix-root-causes](skills/principle-fix-root-causes)
 - [principle-foundational-thinking](skills/principle-foundational-thinking)
 - [principle-guard-the-context-window](skills/principle-guard-the-context-window)
