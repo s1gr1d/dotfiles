@@ -55,13 +55,13 @@ dotfiles/
    It backs up anything already at a target to `<file>.bak` before linking, and
    you can re-run it safely. It creates these links:
 
-   | Symlink | Points at | Used by |
-   |---|---|---|
-   | `~/.zshrc` | `shell/zshrc` | zsh (sources `shell/zsh/*.zsh`) |
-   | `~/.prompts` | `agents/prompts` | the `pp` shell function |
-   | `~/.claude/skills` | `agents/skills` | Claude Code |
-   | `~/.claude/CLAUDE.md` | `agents/AGENTS.md` | Claude Code |
-   | `~/.codex/AGENTS.md` | `agents/AGENTS.md` | Codex |
+   | Symlink               | Points at          | Used by                         |
+   |-----------------------|--------------------|---------------------------------|
+   | `~/.zshrc`            | `shell/zshrc`      | zsh (sources `shell/zsh/*.zsh`) |
+   | `~/.prompts`          | `agents/prompts`   | the `pp` shell function         |
+   | `~/.claude/skills`    | `agents/skills`    | Claude Code                     |
+   | `~/.claude/CLAUDE.md` | `agents/AGENTS.md` | Claude Code                     |
+   | `~/.codex/AGENTS.md`  | `agents/AGENTS.md` | Codex                           |
 
 4. Reload the shell. Open a new terminal, or run `source ~/.zshrc`.
 
