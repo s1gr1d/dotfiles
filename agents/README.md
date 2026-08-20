@@ -20,12 +20,24 @@ of truth, and each tool gets a symlink into the path it expects.
 
 Source: https://github.com/cursor/plugins/tree/main/pstack/skills
 
+- [principle-encode-lessons-in-structure](skills/principle-encode-lessons-in-structure)
 - [principle-fix-root-causes](skills/principle-fix-root-causes)
 - [principle-foundational-thinking](skills/principle-foundational-thinking)
 - [principle-guard-the-context-window](skills/principle-guard-the-context-window)
 - [principle-laziness-protocol](skills/principle-laziness-protocol)
+- [principle-subtract-before-you-add](skills/principle-subtract-before-you-add)
 - [technical-writing](skills/technical-writing)
+- [typescript-best-practices](skills/typescript-best-practices)
 - [unslop](skills/unslop)
+
+### mattpocock/skills
+
+Source: https://github.com/mattpocock/skills
+
+- [code-review](skills/code-review)
+- [grilling](skills/grilling)
+- [teach](skills/teach)
+- [writing-for-agents](skills/writing-for-agents)
 
 ## Notes
 

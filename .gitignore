@@ -1,1 +1,4 @@
 .DS_Store
+
+# Claude Code per-machine local state (keep the .claude/skills symlink tracked)
+.claude/settings.local.json
